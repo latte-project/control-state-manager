@@ -2,7 +2,7 @@ import { CSMObjectRef, gateway } from "./csm.ts";
 import axiod from "https://deno.land/x/axiod@0.24/mod.ts";
 import USID from "https://deno.land/x/usid@1.0.2/mod.ts";
 import { CSMObjectType, CSMStore } from "./store.ts";
-import { CSMObjectArgument, FunctionNameId, InvokeObjectRequest } from "./server.ts";
+import { FunctionNameId, InvokeObjectRequest } from "./server.ts";
 import { InvokeRequest, UpdateRequest } from "./proto.ts";
 
 export const FUNCTION_NAME = Deno.env.get('function_name')!;
