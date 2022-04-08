@@ -1,14 +1,17 @@
 export function debug() {
     return function(target: any, name: string, descriptor: PropertyDescriptor) {
         const f = descriptor.value!;
-        descriptor.value = function(...args: any[]) {
-            console.info("Function " + name + " called");
-            console.info("Arguments are: ");
+        descriptor.value = async function(...args: any[]) {
+            console.info(`Function ${name} arguments: `);
             console.info(...args);
-            const res = f.apply(this, args);
-            console.info("Returns: ");
-            console.info(res);
-            return res;
+            try {
+                const res = await f.apply(this, args);
+                console.info(`Function ${name} returns: `);
+                console.info(res);
+                return res;
+            } catch (e) {
+                console.info(`Function ${name} failed, reason ${e}`);
+            }
         }
     }
 }
