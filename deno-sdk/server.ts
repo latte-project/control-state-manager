@@ -66,9 +66,9 @@ class CSMServer {
     }
 
     @debug()
-    async update(key: string, val: CSMObjectType, modifier: string): Promise<string> {
+    async update(key: string, val: CSMObjectType, modifier: string): Promise<string[]> {
         this.store.update(key, val);
-        return "OK";
+        return ["OK"];
     }
 }
 
