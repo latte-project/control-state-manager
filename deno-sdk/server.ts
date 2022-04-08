@@ -94,4 +94,6 @@ export function listen(port: number, func: (client: CSMClient, ...args: any[]) =
     app.post("/*", (rev) => {
         return rev.response.send("Hello post");
     });
+
+    app.listen(port);
 }
