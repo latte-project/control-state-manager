@@ -19,9 +19,11 @@ export function debug() {
                     const res = await f.apply(this, args);
                     console.info(`Async Function ${name} returns: `);
                     console.info(res);
+                    return res;
                 } catch (e) {
                     console.error(`Async Function ${name} failed, reason ${e}`);
                     console.error(e.stack);
+                    return e;
                 }
             }
         }

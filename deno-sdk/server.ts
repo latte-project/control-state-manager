@@ -3,7 +3,7 @@ import USID from "https://deno.land/x/usid@1.0.2/mod.ts";
 import { CSMClient } from "./client.ts";
 import { CSMObjectRef, CloudFunctionType } from "./csm.ts";
 import { CSMObjectType, CSMStore } from "./store.ts";
-import { InvokeRequest, UpdateRequest } from "./proto.ts";
+import { InvokeRequest, InvokeResponse, UpdateRequest, UpdateResponse } from "./proto.ts";
 import { FUNCTION_NAME } from "./client.ts";
 import { debug } from "./debug.ts";
 
@@ -41,7 +41,7 @@ class CSMServer {
     }
 
     @debug()
-    async invoke(invokeId: string, invoker: FunctionNameId, args: InvokeObjectRequest[]): Promise<any[]> {
+    async invoke(invokeId: string, invoker: FunctionNameId, args: InvokeObjectRequest[]): Promise<InvokeResponse> {
         const client = new CSMClient(invokeId, this.store);
         const argList = [];
         for (const arg of args) {
@@ -70,7 +70,7 @@ class CSMServer {
     }
 
     @debug()
-    async update(key: string, val: CSMObjectType, modifier: string): Promise<string[]> {
+    async update(key: string, val: CSMObjectType, modifier: string): Promise<UpdateResponse> {
         this.store.update(key, val);
         return ["OK"];
     }

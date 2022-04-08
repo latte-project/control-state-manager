@@ -44,8 +44,6 @@ export class CSMClient {
                     val: this.store.read(arg)!,
                     share: this.store.getShareList(arg)!,
                 };
-                console.info('-------------------');
-                console.info(objArg.share);
             } else {
                 objArg = {
                     kind: "Value",
@@ -60,10 +58,7 @@ export class CSMClient {
             invokerName: FUNCTION_NAME,
             objects: argList,
         };
-        const res = await axiod.post(gateway + fname + '/invoke', req);
-        console.log(res.data);
-        const returnValue = res.data[0];
-        // const returnValue = (await axiod.post(gateway + fname + '/invoke', req)).data[0];
+        const returnValue = (await axiod.post(gateway + fname + '/invoke', req)).data[0];
         this.store.unshare([fname, invokeId]);
         return returnValue;
     }

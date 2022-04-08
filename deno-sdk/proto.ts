@@ -9,8 +9,12 @@ export type InvokeRequest = {
     objects: InvokeObjectRequest[],
 };
 
+export type InvokeResponse = [any];
+
 export type UpdateRequest = {
     key: CSMObjectRef, 
     val: CSMObjectType, 
     modifier: string, 
 };
+
+export type UpdateResponse = ["OK"];
