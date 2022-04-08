@@ -1,0 +1,10 @@
+version: 1.0
+provider:
+  name: openfaas
+  gateway: http://localhost:8080
+functions:
+  add:
+    lang: deno
+    handler: ./add
+    image: milky2021/add:latest
+

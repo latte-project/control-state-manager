@@ -1,0 +1,11 @@
+version: 1.0
+provider:
+  name: openfaas
+  gateway: http://localhost:8080
+functions:
+  deno-echo:
+    lang: deno
+    handler: ./deno-echo
+    # image: milky2021/deno-echo:latest
+    image: registry.cn-hangzhou.aliyuncs.com/jotaro/functions:deno-test
+

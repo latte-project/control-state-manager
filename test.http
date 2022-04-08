@@ -1,0 +1,14 @@
+POST http://localhost:8080/function/deno-echo/call
+Content-Type: application/json
+
+[
+    "Hello echo!"
+]
+
+###
+POST http://localhost:8080/function/add/call
+Content-Type: application/json
+
+[
+    1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+]

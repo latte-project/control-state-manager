@@ -1,0 +1,5 @@
+language: deno
+fprocess: deno run --allow-net index.ts
+welcome_message: |
+  Deno template by Milky. 
+
