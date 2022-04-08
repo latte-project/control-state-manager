@@ -4,6 +4,7 @@ import { CSMClient } from "./client.ts";
 import { CSMObjectRef, CloudFunctionType } from "./csm.ts";
 import { CSMObjectType, CSMStore } from "./store.ts";
 import { InvokeRequest, UpdateRequest } from "./proto.ts";
+import { FUNCTION_NAME } from "./client.ts";
 
 export type InvokeObjectRequest = CSMObjectArgument | ValueArgument;
 export type FunctionName = string;
@@ -57,7 +58,7 @@ class CSMServer {
             }
         }
         const returnValue = await this.cloudFunction(client, ...argList);
-        this.store.unshare(invokeId);
+        this.store.unshare([FUNCTION_NAME, invokeId]);
         return returnValue;
     }
 
