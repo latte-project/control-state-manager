@@ -4,6 +4,7 @@ import USID from "https://deno.land/x/usid@1.0.2/mod.ts";
 import { CSMObjectType, CSMStore } from "./store.ts";
 import { FunctionNameId, InvokeObjectRequest } from "./server.ts";
 import { InvokeRequest, UpdateRequest } from "./proto.ts";
+import { debug } from "./debug.ts";
 
 export const FUNCTION_NAME = Deno.env.get('function_name')!;
 
@@ -29,6 +30,7 @@ export class CSMClient {
         return this.store.read(key);
     }
 
+    @debug()
     async invoke<T>(fname: string, ...args: any[]): Promise<T> {
         const invokeId = this.usid.uuid();
         const argList: InvokeObjectRequest[] = [];
@@ -61,6 +63,7 @@ export class CSMClient {
         return returnValue;
     }
 
+    @debug()
     newObject(value: CSMObjectType): CSMObjectRef {
         const ref = this.usid.uuid();
         const functionNameId: FunctionNameId = [FUNCTION_NAME, this.invokeId];
@@ -71,6 +74,7 @@ export class CSMClient {
         return ref;
     }
 
+    @debug()
     async set(key: CSMObjectRef, val: CSMObjectType): Promise<void> {
         const shareList = this.store.getShareList(key);
         if (shareList) {

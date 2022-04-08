@@ -1,7 +1,6 @@
 import { CSMObjectRef } from "./csm.ts";
 import "https://deno.land/x/lodash@4.17.19/lodash.js";
 import { FunctionNameId } from "./server.ts";
-import { debug } from "./debug.ts";
 
 const _ = (self as any)._;
 
@@ -16,7 +15,6 @@ export class CSMStore {
     private localDB: LocalDB = new Map();
     private holdingTable: Map<string, CSMObjectRef[]> = new Map();
 
-    @debug()
     private initOrPush(invokeNameId: FunctionNameId, ref: CSMObjectRef) {
         const key = invokeNameId[0] + invokeNameId[1];
         if (this.holdingTable.has(key)) {
@@ -26,22 +24,18 @@ export class CSMStore {
         }
     }
 
-    @debug()
     read(key: CSMObjectRef): CSMObjectType | undefined {
         return this.localDB.get(key)?.val;
     }
 
-    @debug()
     getShareList(key: CSMObjectRef): FunctionNameId[] | undefined {
         return this.localDB.get(key)?.share;
     }
 
-    @debug()
     update(key: CSMObjectRef, val: CSMObjectType) {
         this.localDB.get(key)!.val = val;
     }
 
-    @debug()
     merge(invokeId: FunctionNameId, key: CSMObjectRef, record: CSMObjectRecord) {
         this.initOrPush(invokeId, key);
         if (this.localDB.has(key)) {
@@ -57,13 +51,11 @@ export class CSMStore {
         }
     }
 
-    @debug()
     share(invokeId: FunctionNameId, key: CSMObjectRef) {
         this.initOrPush(invokeId, key);
         this.localDB.get(key)!.share.push(invokeId);
     }
 
-    @debug()
     unshare(invokeId: FunctionNameId) {
         const invoker = invokeId[0] + invokeId[1];
         if (this.holdingTable.has(invoker)) {
@@ -74,7 +66,6 @@ export class CSMStore {
         }
     }
 
-    @debug()
     hasObject(key: string): boolean {
         return this.localDB.has(key);
     }
