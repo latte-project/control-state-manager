@@ -6,6 +6,6 @@ functions:
   deno-echo:
     lang: deno
     handler: ./deno-echo
-    # image: milky2021/deno-echo:latest
-    image: registry.cn-hangzhou.aliyuncs.com/jotaro/functions:deno-test
-
+    image: milky2021/deno-echo:latest
+    environment:
+      function_name: deno-echo 

@@ -1,0 +1,18 @@
+version: 1.0
+provider:
+  name: openfaas
+  gateway: http://localhost:8080
+functions:
+  chain-caller:
+    lang: deno
+    handler: ./chain-caller
+    image: milky2021/chain-caller:latest
+    environment:
+      function_name: chain-caller
+
+  chain-callee:
+    lang: deno
+    handler: ./chain-callee
+    image: milky2021/chain-callee:latest
+    environment:
+      function_name: chain-callee

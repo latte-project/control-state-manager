@@ -1,5 +1,5 @@
-import CSM from "https://deno.land/x/csm@v0.3.0/csm.ts";
+import { CSMClient } from "https://deno.land/x/csm@v0.4.19/mod.ts";
 
-export function handle(csm: CSM, msg: any) {
+export function handle(csm: CSMClient, msg: any) {
     return msg;
 }

@@ -25,7 +25,7 @@ RUN deno test
 # RUN deno cache index.ts 
 
 WORKDIR /home/app/
-ENV fprocess="deno run --allow-net index.ts"
+ENV fprocess="deno run --allow-net --allow-env index.ts"
 ENV cgi_headers="true"
 ENV mode="http"
 ENV upstream_url="http://127.0.0.1:3000"

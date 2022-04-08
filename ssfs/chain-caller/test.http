@@ -1,0 +1,38 @@
+POST http://localhost:8080/function/chain-caller/call
+Content-Type: application/json
+
+[
+    10
+]
+
+###
+POST http://localhost:8080/function/chain-callee/invoke
+Content-Type: application/json
+
+{
+    "invokeId": "new-invoke-id", 
+    "invokerName": "user-name", 
+    "invokerId": "user-id", 
+    "objects": [{
+        "kind": "CSMObject", 
+        "key": "integer-id", 
+        "val": 10, 
+        "share": [
+            ["chain-callee", "new-invoke-id"]
+        ]
+    }]
+}
+
+###
+POST http://localhost:8080/function/chain-caller/invoke
+Content-Type: application/json
+
+{
+    "invokeId": "new-invoke-id", 
+    "invokerName": "user-name", 
+    "invokerId": "user-id", 
+    "objects": [{
+        "kind": "Value", 
+        "val": 10
+    }]
+}
