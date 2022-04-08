@@ -62,7 +62,11 @@ class CSMServer {
         }
         const returnValue = await this.cloudFunction(client, ...argList);
         this.store.unshare([FUNCTION_NAME, invokeId]);
-        return [returnValue];
+        if (returnValue) {
+            return [returnValue];
+        } else {
+            return ["OK"];
+        }
     }
 
     @debug()
