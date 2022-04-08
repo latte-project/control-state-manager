@@ -1,6 +1,8 @@
 import { CSMObjectRef } from "./csm.ts";
-import _ from "https://deno.land/x/lodash@4.17.19/lodash.js";
+import "https://deno.land/x/lodash@4.17.19/lodash.js";
 import { FunctionNameId } from "./server.ts";
+
+const _ = (self as any)._;
 
 export type CSMObjectType = number | string | boolean;
 export type CSMObjectRecord = {

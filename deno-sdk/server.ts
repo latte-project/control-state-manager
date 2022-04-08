@@ -1,6 +1,5 @@
 import { NHttp } from "https://deno.land/x/nhttp@1.1.11/mod.ts";
 import USID from "https://deno.land/x/usid@1.0.2/mod.ts";
-import _ from "https://deno.land/x/lodash@4.17.19/lodash.js";
 import { CSMClient } from "./client.ts";
 import { CSMObjectRef, CloudFunctionType } from "./csm.ts";
 import { CSMObjectType, CSMStore } from "./store.ts";
