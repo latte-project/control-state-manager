@@ -5,6 +5,7 @@ import { CSMObjectRef, CloudFunctionType } from "./csm.ts";
 import { CSMObjectType, CSMStore } from "./store.ts";
 import { InvokeRequest, UpdateRequest } from "./proto.ts";
 import { FUNCTION_NAME } from "./client.ts";
+import { debug } from "./debug.ts";
 
 export type InvokeObjectRequest = CSMObjectArgument | ValueArgument;
 export type FunctionName = string;
@@ -32,12 +33,14 @@ class CSMServer {
         this.cloudFunction = cloudFunction;
     }
 
+    @debug()
     async call(args: CSMObjectType[]): Promise<any> {
         const callId = this.usid.uuid();
         const invoker: FunctionNameId = ["user-client", "user-id"];
         return this.invoke(callId, invoker, args.map(arg => ({ kind: "Value", val: arg })));
     }
 
+    @debug()
     async invoke(invokeId: string, invoker: FunctionNameId, args: InvokeObjectRequest[]): Promise<any> {
         const client = new CSMClient(invokeId, this.store);
         const argList = [];
@@ -62,6 +65,7 @@ class CSMServer {
         return returnValue;
     }
 
+    @debug()
     async update(key: string, val: CSMObjectType, modifier: string): Promise<string> {
         this.store.update(key, val);
         return "OK";
