@@ -37,22 +37,22 @@ export class CSMClient {
             if (typeof arg === "string" && this.store.hasObject(arg)) {
                 this.store.share([fname, invokeId], arg);
                 objArg = {
-                    kind: "CSMObject", 
-                    key: arg, 
-                    val: this.store.read(arg)!, 
+                    kind: "CSMObject",
+                    key: arg,
+                    val: this.store.read(arg)!,
                     share: this.store.getShareList(arg)!,
                 };
             } else {
                 objArg = {
-                    kind: "Value", 
+                    kind: "Value",
                     val: arg,
                 };
             }
             argList.push(objArg);
         }
         const req: InvokeRequest = {
-            invokeId: invokeId, 
-            invokerId: this.invokeId, 
+            invokeId: invokeId,
+            invokerId: this.invokeId,
             invokerName: FUNCTION_NAME,
             objects: argList,
         }
@@ -64,8 +64,8 @@ export class CSMClient {
     newObject(value: CSMObjectType): CSMObjectRef {
         const ref = this.usid.uuid();
         const functionNameId: FunctionNameId = [FUNCTION_NAME, this.invokeId];
-        this.store.merge(functionNameId, ref, { 
-            val: value, 
+        this.store.merge(functionNameId, ref, {
+            val: value,
             share: [functionNameId],
         });
         return ref;
@@ -76,13 +76,15 @@ export class CSMClient {
         if (shareList) {
             this.store.update(key, val);
             const req: UpdateRequest = {
-                key: key, 
+                key: key,
                 val: val,
                 modifier: this.invokeId,
             };
-            await Promise.all(shareList?.map(share => {
-                return axiod.post(gateway + share[0] + '/set', req);
-            }));
+            await Promise.all(
+                shareList?.map(share => share[0])
+                    .filter(fname => fname !== FUNCTION_NAME)
+                    .map(fname => axiod.post(gateway + fname + '/update', req))
+            );
         }
     }
 }
