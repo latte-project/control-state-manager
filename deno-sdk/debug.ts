@@ -20,7 +20,8 @@ export function debug() {
                     console.info(`Async Function ${name} returns: `);
                     console.info(res);
                 } catch (e) {
-                    console.info(`Async Function ${name} failed, reason ${e}`);
+                    console.error(`Async Function ${name} failed, reason ${e}`);
+                    console.error(e.stack);
                 }
             }
         }
