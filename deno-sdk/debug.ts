@@ -5,7 +5,7 @@ export function debug() {
             console.info("Function " + name + " called");
             console.info("Arguments are: ");
             console.info(...args);
-            const res = f(...args);
+            const res = f.apply(this, args);
             console.info("Returns: ");
             console.info(res);
             return res;
