@@ -56,11 +56,14 @@ export class CSMStore {
         this.localDB.get(key)!.share.push(invokeId);
     }
 
-    unshare(invokeId: string) {
-        for (const key of this.holdingTable.get(invokeId)!) {
-            _.pull(this.localDB.get(key)!.share, invokeId);
+    unshare(invokeId: FunctionNameId) {
+        const invoker = invokeId[0] + invokeId[1];
+        if (this.holdingTable.has(invoker)) {
+            for (const key of this.holdingTable.get(invoker)!) {
+                _.pull(this.localDB.get(key)!.share, invokeId);
+            }
+            this.holdingTable.delete(invoker);
         }
-        this.holdingTable.delete(invokeId);
     }
 
     hasObject(key: string): boolean {
