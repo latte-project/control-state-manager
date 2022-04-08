@@ -41,7 +41,7 @@ class CSMServer {
     }
 
     @debug()
-    async invoke(invokeId: string, invoker: FunctionNameId, args: InvokeObjectRequest[]): Promise<any> {
+    async invoke(invokeId: string, invoker: FunctionNameId, args: InvokeObjectRequest[]): Promise<any[]> {
         const client = new CSMClient(invokeId, this.store);
         const argList = [];
         for (const arg of args) {
@@ -62,7 +62,7 @@ class CSMServer {
         }
         const returnValue = await this.cloudFunction(client, ...argList);
         this.store.unshare([FUNCTION_NAME, invokeId]);
-        return returnValue;
+        return [returnValue];
     }
 
     @debug()

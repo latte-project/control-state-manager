@@ -58,7 +58,7 @@ export class CSMClient {
             invokerName: FUNCTION_NAME,
             objects: argList,
         }
-        const returnValue = (await axiod.post(gateway + fname + '/invoke', req)).data;
+        const returnValue = (await axiod.post(gateway + fname + '/invoke', req)).data[0];
         this.store.unshare([fname, invokeId]);
         return returnValue;
     }
