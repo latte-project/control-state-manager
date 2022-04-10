@@ -70,7 +70,7 @@ class CSMServer {
     }
 
     @debug()
-    async update(key: string, val: CSMObjectType, modifier: string): Promise<UpdateResponse> {
+    async update(key: string, val: CSMObjectType): Promise<UpdateResponse> {
         this.store.update(key, val);
         return ["OK"];
     }
@@ -92,7 +92,7 @@ export function listen(port: number, func: (client: CSMClient, ...args: any[]) =
 
     app.post("/update", async (rev) => {
         const args = rev.body as UpdateRequest;
-        return rev.response.send(await csm.update(args.key, args.val, args.modifier));
+        return rev.response.send(await csm.update(args.key, args.val));
     });
 
     app.get("/*", (rev) => {

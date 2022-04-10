@@ -12,9 +12,8 @@ export type InvokeRequest = {
 export type InvokeResponse = [any];
 
 export type UpdateRequest = {
-    key: CSMObjectRef, 
-    val: CSMObjectType, 
-    modifier: string, 
+    key: CSMObjectRef,
+    val: CSMObjectType,
 };
 
 export type UpdateResponse = ["OK"];

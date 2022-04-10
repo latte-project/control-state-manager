@@ -58,6 +58,7 @@ export class CSMClient {
             invokerName: FUNCTION_NAME,
             objects: argList,
         };
+        // TODO: broadcast sharing
         const returnValue = (await axiod.post(gateway + fname + '/invoke', req)).data[0];
         this.store.unshare([fname, invokeId]);
         return returnValue;
@@ -82,7 +83,6 @@ export class CSMClient {
             const req: UpdateRequest = {
                 key: key,
                 val: val,
-                modifier: this.invokeId,
             };
             await Promise.all(
                 shareList?.map(share => share[0])
